@@ -7,17 +7,7 @@ export default class App extends Component {
   state = {
     loading: true,
     items: [],
-    searchItem: ""
-    //Filter Items[](getAllData)
-    // sortedItems: [],
-    // id: 0,
-    // name: "",
-    // stackable: false,
-    // members: false,
-    // noted: false,
-    // tradeable: false,
-    // noteId: 1,
-    // value: 0,
+    searchItem: []
   }
 
 
@@ -29,16 +19,6 @@ export default class App extends Component {
         this.setState({
           items: res.data,
           loading: false,
-          // Filtered Data
-          // sortedItems: res.data,
-          // id: res.data.id,
-          // name: res.data.name,
-          // stackable: res.data.stackable,
-          // members: res.data.members,
-          // noted: res.data.noted,
-          // tradeable: res.data.tradeable,
-          // noteId: res.data.noteId,
-          // value: res.data.value
         })
       })
     } catch (error) {
@@ -55,21 +35,32 @@ export default class App extends Component {
 
 
   handleInput = (e) => {
+    e.preventDefault();
     this.setState({ searchItem: e.target.value })
   }
 
 
   render() {
+
+
     let filterItems = this.state.items.filter((item) => {
-      return item.name.toLowerCase().includes(this.state.searchItem.toLowerCase())
+      return item.name.toLowerCase().includes(this.state.searchItem)
     })
 
     return (
-      <div>
-        <h1 style={{ marginRight: '50%', marginLeft: "50%" }}>Items Search:
-        </h1>
-        <SearchBox handleInput={this.handleInput} />
-        <ItemList filterItems={filterItems} />
+      <div className="container-fluid">
+        <div className="row mx-auto">
+          <div className="col-md-6 offset-md-6">
+            <h1>Items Search:</h1>
+            <SearchBox handleInput={this.handleInput} />
+          </div>
+        </div>
+        <div className="row mt-5">
+          <h2 className="offset-md-6">Search Results: </h2>
+          <div className="col-md-6 offset-md-6">
+            <ItemList filterItems={filterItems} />
+          </div>
+        </div>
       </div>
     )
   }

@@ -3,7 +3,16 @@ import Item from './Item'
 
 export default function ItemList(props) {
   let items = props.filterItems.map((item, i) => {
-    return <Item key={i} name={item.name} id={item.id} tradeable={props.tradeable} members={props.members} value={props.value} />
+    return <Item
+      key={i}
+      id={item.id}
+      name={item.name}
+      stackable={item.stackable}
+      members={props.members}
+      noted={item.noted}
+      tradeable={props.tradeable}
+      noteId={props.noteId}
+      value={props.value} />
   })
 
   return (
@@ -11,4 +20,13 @@ export default function ItemList(props) {
       {items}
     </div>
   )
+
+  // "id": "0",
+  //   "name": "Dwarf remains",
+  //     "stackable": "false",
+  //       "members": "true",
+  //         "noted": "false",
+  //           "tradeable": "false",
+  //             "noteId": "-1",
+  //               "value": "0"
 }
